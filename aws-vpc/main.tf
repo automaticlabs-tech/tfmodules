@@ -123,6 +123,6 @@ resource "aws_security_group" "sg_allow_https" {
   }
 
   tags = {
-    Name = "allow_http_https"
+    Name = "sg_allow_https"
   }
 }
