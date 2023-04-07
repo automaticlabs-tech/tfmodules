@@ -96,7 +96,7 @@ resource "aws_route_table_association" "public" {
   route_table_id = aws_route_table.public[count.index].id
 }
 
-resource "aws_security_group" "allow_http_https" {
+resource "aws_security_group" "sg_allow_https" {
   name = "allow_http_https"
   description = "Allow HTTP and HTTPS from Anywhere"
   vpc_id = aws_vpc.this.id
