@@ -14,6 +14,3 @@ output "vpc_default_route_table_id" {
   value = aws_vpc.this.default_route_table_id 
 }
 
-output "public_subnet_id" {
-  value = aws_subnet.public.id
-}
