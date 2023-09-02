@@ -27,7 +27,7 @@ resource "aws_route_table" "private" {
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.this[count.index].id
+    gateway_id = one(aws_nat_gateway.this[count.index].id)
 
   }
 
@@ -69,9 +69,9 @@ resource "aws_subnet" "public" {
         }"
 }
 
-output "public_subnet_id" {
-  value = one(aws_subnet.public[*].id)
-}
+# output "public_subnet_id" {
+#   value = one(aws_subnet.public[*].id)
+# }
 
 resource "aws_internet_gateway" "this" {
   count = var.enable_public_subnet ? 1 : 0 
