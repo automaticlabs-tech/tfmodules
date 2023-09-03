@@ -31,14 +31,7 @@ resource "aws_s3_bucket_acl" "this" {
 resource "aws_s3_bucket" "this" {
   bucket = var.s3_name
 
-    # website {
-    # index_document = var.cloudfront_default_root_object
-    # error_document = var.cloudfront_default_error_object
-    # }
-
-    tags = "${merge
-            (var.s3_tags)
-    }"
+    tags = "${merge (var.s3_tags) }"
 }
 
 resource "aws_s3_bucket_website_configuration" "this" {
@@ -60,30 +53,30 @@ resource "aws_s3_bucket_versioning" "this" {
   }
 }
 
-# resource "aws_s3_bucket_policy" "this" {
-#   bucket = aws_s3_bucket.this.id
+resource "aws_s3_bucket_policy" "this" {
+  bucket = aws_s3_bucket.this.id
 
-#   policy = jsonencode({
-#     "Version" : "2008-10-17",
-#     "Statement" : [
-#       {
-#         "Sid" : "AllowCloudFrontServicePrincipalReadOnly",
-#         "Effect" : "Allow",
-#         "Principal" : {
-#           "Service" : "cloudfront.amazonaws.com",
-#         },
-#         "Action" : "s3:GetObject",
-#         "Resource" : "arn:aws:s3:::${aws_s3_bucket.this.bucket}/*",
-#         "Condition" : {
-#           "StringEquals" : {
-#             "aws:SourceArn" : aws_cloudfront_distribution.this.arn
-#           }
-#         }
-#       }
-#     ]
-#   })
+  policy = jsonencode({
+    "Version" : "2008-10-17",
+    "Statement" : [
+      {
+        "Sid" : "AllowCloudFrontServicePrincipalReadOnly",
+        "Effect" : "Allow",
+        "Principal" : {
+          "Service" : "cloudfront.amazonaws.com",
+        },
+        "Action" : "s3:GetObject",
+        "Resource" : "arn:aws:s3:::${aws_s3_bucket.this.bucket}/*",
+        "Condition" : {
+          "StringEquals" : {
+            "aws:SourceArn" : aws_cloudfront_distribution.this.arn
+          }
+        }
+      }
+    ]
+  })
 
-#   depends_on = [
-#     aws_s3_bucket.this
-#   ]
-# }
+  depends_on = [
+    aws_s3_bucket.this
+  ]
+}
