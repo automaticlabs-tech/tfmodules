@@ -19,10 +19,10 @@ variable "stage" {
   description = "Stage (dev, test, prod)"
 }
 
-variable "route53_private_zone" {
-  default = false
-  type    = bool
-}
+# variable "route53_private_zone" {
+#   default = false
+#   type    = bool
+# }
 
 variable "route53_zone_domain" {
   default     = ""
