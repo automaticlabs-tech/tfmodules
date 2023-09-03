@@ -1,12 +1,3 @@
-# resource "aws_route53_zone" "this" {
-#   name = "automaticlabs.tech"
-# }
-
-data "aws_route53_zone" "this" {
-  name         = "${local.route53_base_domain}."
-  private_zone = local.route53_private_zone
-}
-
 # Create Route53 Record to CloudFront
 resource "aws_route53_record" "this" {
   name    = "www.automaticlabs.tech"

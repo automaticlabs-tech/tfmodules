@@ -1,4 +1,3 @@
-
 variable "s3_name" {
   type = string
   default = "s3_backend"
