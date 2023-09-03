@@ -68,7 +68,7 @@ resource "aws_s3_bucket" "this" {
 #     ]
 #   })
 
-  depends_on = [
-    aws_s3_bucket.this
-  ]
-}
+#   depends_on = [
+#     aws_s3_bucket.this
+#   ]
+# }
