@@ -1,4 +1,4 @@
-resource "aws_acm_certificate" "this" {
+resource "aws_acm_certificate" "certificate" {
   #domain_name       = local.cdn_domain != "" ? local.cdn_domain : data.aws_route53_zone.domain_zone.name
   domain_name        = "automaticlabs.tech"
   validation_method = "DNS"
@@ -10,8 +10,8 @@ resource "aws_acm_certificate" "this" {
 }
 
 resource "aws_acm_certificate_validation" "certificate_validation" {
-  certificate_arn         = aws_acm_certificate.this.arn
-  validation_record_fqdns = [for record in aws_route53_record.this : record.fqdn]
+  certificate_arn         = aws_acm_certificate.certificate.arn
+  validation_record_fqdns = [for record in aws_route53_record.certificate : record.fqdn]
 
   depends_on = [
     aws_acm_certificate.this
