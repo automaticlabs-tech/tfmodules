@@ -23,7 +23,7 @@ resource "aws_acm_certificate_validation" "certificate_validation" {
 }
 
 # Add Certificate Validation Records on Route53
-resource "aws_route53_record" "this" {
+resource "aws_route53_record" "certificate_records" {
   for_each = {
     for dvo in aws_acm_certificate.this.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
