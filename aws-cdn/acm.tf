@@ -1,6 +1,6 @@
 resource "aws_acm_certificate" "certificate" {
   #domain_name       = local.cdn_domain != "" ? local.cdn_domain : data.aws_route53_zone.domain_zone.name
-  domain_name        = "automaticlabs.tech"
+  domain_name        = "*.automaticlabs.tech"
   validation_method = "DNS"
 
 #   tags = {
