@@ -14,7 +14,7 @@ resource "aws_acm_certificate_validation" "certificate_validation" {
   validation_record_fqdns = [for record in aws_route53_record.certificate : record.fqdn]
 
   depends_on = [
-    aws_acm_certificate.this
+    aws_acm_certificate.certificate
   ]
 
   timeouts {
