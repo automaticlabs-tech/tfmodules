@@ -31,10 +31,6 @@ resource "aws_s3_bucket_acl" "this" {
 resource "aws_s3_bucket" "this" {
   bucket = var.s3_name
 
-  aws_s3_bucket_versioning {
-    enabled = false
-  }
-
     website {
     index_document = var.cloudfront_default_root_object
     error_document = var.cloudfront_default_error_object
@@ -43,6 +39,13 @@ resource "aws_s3_bucket" "this" {
     tags = "${merge
             (var.s3_tags)
     }"
+}
+
+resource "aws_s3_bucket_versioning" "this" {
+  bucket = aws_s3_bucket.this.id
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
 
 # resource "aws_s3_bucket_policy" "this" {
