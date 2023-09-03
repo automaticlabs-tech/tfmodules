@@ -31,14 +31,26 @@ resource "aws_s3_bucket_acl" "this" {
 resource "aws_s3_bucket" "this" {
   bucket = var.s3_name
 
-    website {
-    index_document = var.cloudfront_default_root_object
-    error_document = var.cloudfront_default_error_object
-    }
+    # website {
+    # index_document = var.cloudfront_default_root_object
+    # error_document = var.cloudfront_default_error_object
+    # }
 
     tags = "${merge
             (var.s3_tags)
     }"
+}
+
+resource "aws_s3_bucket_website_configuration" "this" {
+  bucket = aws_s3_bucket.this.id
+
+  index_document {
+    suffix = var.cloudfront_default_root_object
+  }
+
+  error_document {
+    key = var.cloudfront_default_error_object
+  }
 }
 
 resource "aws_s3_bucket_versioning" "this" {
