@@ -31,7 +31,7 @@ resource "aws_s3_bucket_acl" "this" {
 resource "aws_s3_bucket" "this" {
   bucket = var.s3_name
 
-  versioning {
+  aws_s3_bucket_versioning {
     enabled = false
   }
 
