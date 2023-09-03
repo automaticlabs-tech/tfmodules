@@ -9,8 +9,8 @@ resource "aws_route53_zone" "this" {
 
 # Create Route53 Record to CloudFront
 resource "aws_route53_record" "this" {
-  name    = "automaticlabs.tech"
-  type    = "A"
+  name    = "www.automaticlabs.tech"
+  type    = "CNAME"
   zone_id = aws_route53_zone.this.zone_id
   #zone_id = data.aws_route53_zone.domain_zone.zone_id
   #name    = local.cdn_domain != "" ? local.cdn_domain : data.aws_route53_zone.domain_zone.name
