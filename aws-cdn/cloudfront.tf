@@ -20,7 +20,7 @@ resource "aws_cloudfront_distribution" "this" {
   http_version        = var.cloudfront_http_version
 
   #aliases = local.cdn_domain != "" ? [local.cdn_domain] : local.route53_base_domain != "" ? [local.route53_base_domain] : []
-  aliases = ["automaticlabs.tech" ]
+  #aliases = ["automaticlabs.tech" ]
 
 
   origin {
