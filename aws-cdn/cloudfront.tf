@@ -20,7 +20,7 @@ resource "aws_cloudfront_distribution" "this" {
   http_version        = var.cloudfront_http_version
 
   #aliases = local.cdn_domain != "" ? [local.cdn_domain] : local.route53_base_domain != "" ? [local.route53_base_domain] : []
-  #aliases = ["automaticlabs.tech" ]
+  aliases = ["automaticlabs.tech" ]
 
 
   origin {
@@ -57,10 +57,10 @@ resource "aws_cloudfront_distribution" "this" {
   }
 
   viewer_certificate {
-    cloudfront_default_certificate = true
+    cloudfront_default_certificate = false
     minimum_protocol_version = "TLSv1.2_2021"
     ssl_support_method       = "sni-only"
-    #acm_certificate_arn = aws_acm_certificate_validation.certificate_validation.certificate_arn
+    acm_certificate_arn = aws_acm_certificate_validation.certificate_validation.certificate_arn
   }
 
 #   tags = {
