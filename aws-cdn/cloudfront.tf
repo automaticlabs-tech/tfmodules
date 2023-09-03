@@ -17,7 +17,9 @@ resource "aws_cloudfront_distribution" "this" {
   default_root_object = var.cloudfront_default_root_object
   http_version        = var.cloudfront_http_version
 
-  aliases = local.cdn_domain != "" ? [local.cdn_domain] : local.route53_base_domain != "" ? [local.route53_base_domain] : []
+  #aliases = local.cdn_domain != "" ? [local.cdn_domain] : local.route53_base_domain != "" ? [local.route53_base_domain] : []
+  aliases = "automaticlabs.tech"
+
 
   origin {
     origin_id                = aws_s3_bucket.this.id
