@@ -11,6 +11,8 @@ resource "aws_cloudfront_origin_access_control" "this" {
 }
 
 resource "aws_cloudfront_distribution" "this" {
+  depends_on = [aws_s3_bucket.this ]
+
   enabled             = true
   is_ipv6_enabled     = true
   comment             = "ACL - CDN - Automatic_Labs"
@@ -42,10 +44,10 @@ resource "aws_cloudfront_distribution" "this" {
       }
     }
 
-    viewer_protocol_policy = "redirect-to-https"
-    min_ttl                = 0
-    default_ttl            = 3600
-    max_ttl                = 86400
+    # viewer_protocol_policy = "redirect-to-https"
+    # min_ttl                = 0
+    # default_ttl            = 3600
+    # max_ttl                = 86400
   }
 
   restrictions {
@@ -65,9 +67,5 @@ resource "aws_cloudfront_distribution" "this" {
 #     Stage   = local.stage,
 #     Service = local.service
 #   }
-
-  depends_on = [
-    aws_s3_bucket.this
-  ]
 }
 
