@@ -14,19 +14,19 @@ resource "aws_s3_bucket_server_side_encryption_configuration" "this" {
   }
  }
 
-resource "aws_s3_bucket_acl" "this" {
-  depends_on = [aws_s3_bucket_ownership_controls.this]
-
-  bucket = aws_s3_bucket.this.id
-  acl    = "private"
-}
-
 # resource "aws_s3_bucket_ownership_controls" "this" {
 #   bucket = aws_s3_bucket.this.id
 #   rule {
 #     object_ownership = "BucketOwnerPreferred"
 #   }
 # }
+
+resource "aws_s3_bucket_acl" "this" {
+  #depends_on = [aws_s3_bucket_ownership_controls.this]
+
+  bucket = aws_s3_bucket.this.id
+  acl    = "private"
+}
 
 resource "aws_s3_bucket" "this" {
   bucket = var.s3_name
@@ -45,28 +45,28 @@ resource "aws_s3_bucket" "this" {
     }"
 }
 
-resource "aws_s3_bucket_policy" "this" {
-  bucket = aws_s3_bucket.this.id
+# resource "aws_s3_bucket_policy" "this" {
+#   bucket = aws_s3_bucket.this.id
 
-  policy = jsonencode({
-    "Version" : "2008-10-17",
-    "Statement" : [
-      {
-        "Sid" : "AllowCloudFrontServicePrincipalReadOnly",
-        "Effect" : "Allow",
-        "Principal" : {
-          "Service" : "cloudfront.amazonaws.com",
-        },
-        "Action" : "s3:GetObject",
-        "Resource" : "arn:aws:s3:::${aws_s3_bucket.this.bucket}/*",
-        "Condition" : {
-          "StringEquals" : {
-            "aws:SourceArn" : aws_cloudfront_distribution.this.arn
-          }
-        }
-      }
-    ]
-  })
+#   policy = jsonencode({
+#     "Version" : "2008-10-17",
+#     "Statement" : [
+#       {
+#         "Sid" : "AllowCloudFrontServicePrincipalReadOnly",
+#         "Effect" : "Allow",
+#         "Principal" : {
+#           "Service" : "cloudfront.amazonaws.com",
+#         },
+#         "Action" : "s3:GetObject",
+#         "Resource" : "arn:aws:s3:::${aws_s3_bucket.this.bucket}/*",
+#         "Condition" : {
+#           "StringEquals" : {
+#             "aws:SourceArn" : aws_cloudfront_distribution.this.arn
+#           }
+#         }
+#       }
+#     ]
+#   })
 
   depends_on = [
     aws_s3_bucket.this
